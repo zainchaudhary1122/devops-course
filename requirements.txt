@@ -1,0 +1,10 @@
+streamlit
+python-pptx
+google-api-python-client
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
+mammoth
+markdown
+openpyxl
+python-dotenv
