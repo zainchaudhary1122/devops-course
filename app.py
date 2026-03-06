@@ -8,7 +8,7 @@ load_dotenv()
 # PAGE CONFIG  (must be FIRST streamlit call)
 # ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="Drive Viewer",
+    page_title="DevOps Course",
     page_icon="📁",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -768,5 +768,5 @@ else:
         <h3>Drive Viewer</h3>
         <p>Select a file from the explorer on the left to preview it here.<br>
         All files are <strong style="color:#f9e2af;">read-only</strong> —
-        downloading and copying are disabled.</p>
+        downloading is disabled.</p>
     </div>""", unsafe_allow_html=True)
