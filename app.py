@@ -8,7 +8,7 @@ load_dotenv()
 # PAGE CONFIG  (must be FIRST streamlit call)
 # ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="DevOps Course",
+    page_title="Drive Viewer",
     page_icon="📁",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -197,6 +197,7 @@ def file_emoji(mime: str, name: str) -> str:
     if mime == "application/pdf" or e == "pdf":        return "📕"
     if mime == "text/markdown"   or e == "md":         return "📋"
     if mime == "text/plain"      or e == "txt":        return "📄"
+    if mime.startswith("image/") or e in ("png","jpg","jpeg","gif","webp","svg","bmp","ico"): return "🖼️"
     return "📄"
 
 def file_label(mime: str) -> str:
@@ -662,6 +663,25 @@ def render_preview(service, file_id: str, file_name: str, mime_type: str):
             st.code(text, language=lang)
             st.markdown('</div>', unsafe_allow_html=True)
 
+    # ── Images ───────────────────────────────────────
+    elif (mime_type.startswith("image/")
+          or ext in ("png","jpg","jpeg","gif","webp","bmp","ico")):
+        # SVG — render in iframe (st.image doesn't support SVG)
+        if ext == "svg" or mime_type == "image/svg+xml":
+            import streamlit.components.v1 as components
+            svg_str = _bytes_to_str(data)
+            components.html(
+                f'<div style="background:#13131f;display:flex;align-items:center;'
+                f'justify-content:center;min-height:400px;padding:20px;">{svg_str}</div>',
+                height=500, scrolling=True)
+        else:
+            st.markdown(
+                '<div style="background:#13131f;border:1px solid #2a2a3e;'
+                'border-radius:0 0 8px 8px;padding:24px;text-align:center;">',
+                unsafe_allow_html=True)
+            st.image(data, use_container_width=False)
+            st.markdown('</div>', unsafe_allow_html=True)
+
     # ── HTML – render as live web page in sandboxed iframe ──────────
     elif ext == "html":
         import streamlit.components.v1 as components
@@ -765,7 +785,7 @@ else:
     st.markdown("""
     <div class="empty-state">
         <div class="eicon">📂</div>
-        <h3>DevOps Course</h3>
+        <h3>Drive Viewer</h3>
         <p>Select a file from the explorer on the left to preview it here.<br>
         All files are <strong style="color:#f9e2af;">read-only</strong> —
         downloading is disabled.</p>
