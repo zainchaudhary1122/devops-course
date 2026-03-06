@@ -765,7 +765,7 @@ else:
     st.markdown("""
     <div class="empty-state">
         <div class="eicon">📂</div>
-        <h3>Drive Viewer</h3>
+        <h3>DevOps Course</h3>
         <p>Select a file from the explorer on the left to preview it here.<br>
         All files are <strong style="color:#f9e2af;">read-only</strong> —
         downloading is disabled.</p>
